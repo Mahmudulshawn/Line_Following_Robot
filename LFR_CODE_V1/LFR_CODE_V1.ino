@@ -85,7 +85,7 @@ void setup() {
 }
 
 void loop() {
-  motor(100, 100);
+  // motor(100, 100);
   // side_calibrate();
   // PID_Controller(base_speed, kp, kd);
 
@@ -93,4 +93,23 @@ void loop() {
   // stop();
 
   // calibrateSensor();
+
+  //Final Version
+  // if(digitalRead(cal_button) == 0) {
+  //   while(1){
+  //     calibrateSensor();
+  //   }
+  // } 
+
+  // if(digitalRead(run_button) == 0) {
+  //   while(1) {
+  //     PID_Controller();
+  //   }
+  // }
+
+  // if(digitalRead(stop_button) == 0) {
+  //   while(1) {
+  //     stop();
+  //   }
+  // }
 }
