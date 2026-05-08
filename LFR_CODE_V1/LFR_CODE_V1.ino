@@ -85,7 +85,7 @@ void setup() {
 }
 
 void loop() {
-  // motor(100, 100);
+  motor(100, 100);
   // side_calibrate();
   // PID_Controller(base_speed, kp, kd);
 
@@ -103,7 +103,7 @@ void loop() {
 
   // if(digitalRead(run_button) == 0) {
   //   while(1) {
-  //     PID_Controller();
+  //     PID_Controller(base_speed, kp, kd);
   //   }
   // }
 
