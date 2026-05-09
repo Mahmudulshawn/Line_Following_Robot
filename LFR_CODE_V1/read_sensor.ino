@@ -36,7 +36,7 @@ void read_black_line() {
 void Bit_Sensor_Show() { // For Debugging Sensor Values For Both Type of Lines.
   read_black_line();
 
-  Serial.print("Bit Sensor in Decimal: "+String(bitSensor)); //Decimal value show
+  // Serial.print("Bit Sensor in Decimal: "+String(bitSensor)); //Decimal value show
   Serial.print(" | Bit Sensor in Binary: ");
 
   for(int i = (sensorNumber - 1); i >= 0; i--){

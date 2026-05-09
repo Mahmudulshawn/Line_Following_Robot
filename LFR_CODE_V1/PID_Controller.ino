@@ -1,6 +1,6 @@
 void PID_Controller(int base_speed, int p, int d) {
-  while(1) {
-    a:
+  // while(1) {
+  //   a:
       read_black_line();
 
       if(sumOnSensor > 0) line_position = sensorWeight / sumOnSensor;
@@ -35,7 +35,7 @@ void PID_Controller(int base_speed, int p, int d) {
         }
       }else if (bitSensor == 255) { 
         //stop, T-intersection, Cross intersection
-        digitalWrite(LED, HIGH); //LED on when all black
+        // digitalWrite(LED, HIGH); //LED on when all black
         distance(10);            //Move additional 10cm to check
         read_black_line();       //Continuous checking for change
         while(bitSensor == 255) {//If all still black Stop
@@ -51,10 +51,11 @@ void PID_Controller(int base_speed, int p, int d) {
           }
         }
       }else if(bitSensor == 231 || bitSensor == 247 || bitSensor == 243 || bitSensor == 239 || bitSensor == 207) {
-        inverseON != inverseON;
-        digitalWrite(LED, HIGH);
+        inverseON = !inverseON;
+        // digitalWrite(LED, HIGH);
         // Bit_Sensor_Show(); // For debugging Sensor values for both type of Lines.
-        goto a;
+        // goto a;
+        return; // return to loop and start again immediately
       }
       // Bit_Sensor_Show();
       //digitalWrite(LED, LOW);
@@ -74,7 +75,7 @@ void PID_Controller(int base_speed, int p, int d) {
       previous_error = error;
 
       motor(left_motor_correction, right_motor_correction);
-  }
+  // }
 }
 
 void side_calibrate() {
