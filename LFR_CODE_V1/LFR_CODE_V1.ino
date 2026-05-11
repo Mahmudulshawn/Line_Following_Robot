@@ -16,10 +16,12 @@ const uint16_t threshold = 500;
 #define left_motor_speed 9          //PWMB
 #define right_motor_speed 3         //PWMA
 
-#define STBY 10
+#define STBY 10                     //STBY
 
-#define delay_before_turn 50
-#define turnSpeed 150
+#define delay_before_turn 20
+#define turnSpeed 180
+
+int base_speed = 110;
 
 String T_direction = "right";
 
@@ -54,9 +56,8 @@ float line_position;
 float center_position = 45;
 float error;
 float derivative, previous_error;
-int base_speed = 200;
-int kp = 8;
-int kd = 0;
+int kp = 10;
+int kd = 20;
 
 // turn variable
 String direction = "straight";
@@ -91,7 +92,7 @@ void setup() {
   pinMode(run_button, INPUT_PULLUP);
   pinMode(stop_button, INPUT_PULLUP);
 
-  // LoadCalibration(); //load calibration value from eeprom when arduino starts
+  LoadCalibration(); //load calibration value from eeprom when arduino starts
 }
 
 void loop() {
@@ -103,10 +104,13 @@ void loop() {
   switch (mode) {
     case 0:  // RUN
       PID_Controller(base_speed, kp, kd);
+      // distance(20);
+      // mode = 1;
       break;
 
     case 1:  // STOP
       stop();
+      mode = 1;
       break;
 
     case 2:  // CALIBRATE
