@@ -13,9 +13,9 @@ void motor(int LPWM, int RPWM) {
   // RIGHT MOTOR
   if(RPWM > 0) {
     digitalWrite(right_motor_forward, LOW);
-    digitalWrite(right_motor_backward, HIGH);
+    digitalWrite(right_motor_backward, RIGHT);
   }else {
-    digitalWrite(right_motor_forward, HIGH);
+    digitalWrite(right_motor_forward, RIGHT);
     digitalWrite(right_motor_backward, LOW);
   }
 

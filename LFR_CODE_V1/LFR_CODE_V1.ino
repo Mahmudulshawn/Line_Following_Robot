@@ -18,12 +18,10 @@ const uint16_t threshold = 500;
 
 #define STBY 10                     //STBY
 
-#define delay_before_turn 20
+#define delay_before_turn 70
 #define turnSpeed 180
 
-int base_speed = 110;
-
-String T_direction = "right";
+int base_speed = 180;
 
 // timers
 #define stop_time 20
@@ -42,6 +40,7 @@ int measured_distance = 10;
 int LED = LED_BUILTIN;
 
 int sensorDigital[sensorNumber];
+// int weightValue[sensorNumber] = {0, 1000, 2000, 3000, 4000, 5000, 6000, 7000};
 int weightValue[sensorNumber] = {10, 20, 30, 40, 50, 60, 70, 80};
 int bitWeight[sensorNumber] = {1, 2, 4, 8, 16, 32, 64, 128};
 int sumOnSensor; 
@@ -54,13 +53,31 @@ int Reference_Value[sensorNumber];
 // PID Variables
 float line_position;
 float center_position = 45;
+// float center_position = 3500;
 float error;
-float derivative, previous_error;
-int kp = 10;
-int kd = 20;
+float derivative, integral, previous_error;
+float kp = 10;
+float kd = 150.0;
+float ki = 0.0;
 
 // turn variable
-String direction = "straight";
+enum Direction {
+  LEFT,
+  RIGHT,
+  SHARP_LEFT,
+  SHARP_RIGHT,
+  STRAIGHT
+};
+Direction direction = STRAIGHT;
+Direction T_direction = SHARP_RIGHT;
+Direction Last_Line = STRAIGHT;
+
+// Track type
+enum TrackType {
+  CROSS_JUNCTION,
+  LOST_LINE
+};
+TrackType trackType;
 
 int mode = 1; 
 // 0 = RUN
@@ -104,8 +121,7 @@ void loop() {
   switch (mode) {
     case 0:  // RUN
       PID_Controller(base_speed, kp, kd);
-      // distance(20);
-      // mode = 1;
+      // Bit_Sensor_Show();
       break;
 
     case 1:  // STOP
